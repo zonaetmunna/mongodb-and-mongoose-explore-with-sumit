@@ -30,6 +30,19 @@ todoSchema.methods={
      }
 }
 
+// custom static methods
+todoSchema.static={
+     findByJs:function(){
+          return this.find({title:/js/i});
+     }
+}
+// custom query helper methods
+todoSchema.static={
+     byLanguage:function(language){
+          return this.find({title:new RegExp(language,"i")});
+     }
+}
+
 
 // exports file
 module.exports=todoSchema;

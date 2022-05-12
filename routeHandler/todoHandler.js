@@ -125,17 +125,45 @@ router.get('/active',async(req,res)=>{
                data,
                message:'get all data successfully'
           })
-
      }
      catch(error){
           res.status(500).json({
                error:'this is sever site error'
           })
+     } 
+});
 
+// static methods use
+router.get('/js',async(req,res)=>{
+     try{
+          const data=await todo.findByJs();
+          res.status(200).json({
+               data,
+               message:'get all data successfully'
+          })
      }
-     
-}) 
+     catch(error){
+          res.status(500).json({
+               error:'this is sever site error'
+          })
+     } 
+});
 
+// query helper custom
+router.get('/language',async(req,res)=>{
+     try{
+          const data=await todo.find().byLanguage('js');
+          res.status(200).json({
+               data,
+               message:'get all data successfully'
+          })
+     }
+     catch(error){
+          res.status(500).json({
+               error:'this is sever site error'
+          })
+     } 
+});
 
 // export file
 module.exports=router;

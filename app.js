@@ -25,10 +25,11 @@ mongoose.connect('mongodb://localhost/todos')
 app.use('/todo',todoHandler);
 
 // basic api
-/* app.get('/',(req,res)=>{
+/* 
+app.get('/',(req,res)=>{
      res.send('hello express');
 });
- */
+*/
 
 
 
