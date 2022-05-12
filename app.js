@@ -1,11 +1,14 @@
 
-// require
+/* require */
+// build in
 const express=require('express');
 const cors=require('cors');
 require('dotenv').config();
 const mongodb=require('mongodb');
 const mongoose=require('mongoose');
+// file
 const todoHandler=require('./routeHandler/todoHandler');
+const userHandler=require('./routeHandler/userHandler');
 
 // app declared
 const app=express();
@@ -18,30 +21,32 @@ app.use(express.json());
 app.use(cors());
 
 // database connect with mongoose
-mongoose.connect('mongodb://localhost/todos')
+mongoose.connect('mongodb://localhost/todos',{
+     useNewUrlParser: true,
+     useUnifiedTopology: true,
+})
 .then(()=>console.log('connecting successfully'))
 .catch(err=>console.log(err));
 
+// application routes
 app.use('/todo',todoHandler);
+app.use('/user',userHandler);
 
 // basic api
-/* 
 app.get('/',(req,res)=>{
      res.send('hello express');
 });
-*/
-
-
 
 // default error handler
 const errorHandler=(err,req,res,next)=>{
-     if(res.headersSent){
+     if(req.headersSent){
           return next(err);
      }else{
           res.status(5000).json({error:err});
      }
 
 };
+app.use(errorHandler);
 
 // listen app
 app.listen(port,()=>{

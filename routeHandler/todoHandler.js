@@ -1,14 +1,14 @@
-/* 
-md zonaet hossain
-data: 12-5-22
-*/
-// require
+/* md zonaet hossain data: 12-5-22 */
+
+/* require */
+// build 
 const express=require('express');
 const mongoose=require('mongoose');
 const router=express.Router();
 const todoSchema=require('../schemas/todoSchema');
 // create mongoose model
 const Todo=new mongoose.model('Todo',todoSchema);
+const checkLogin=require("../middleware/checkLogin");
 
 
 
@@ -49,17 +49,16 @@ router.post('/all',async(req,res)=>{
 
 
 // get all todo
-router.get('/',async(req,res)=>{
+router.get('/', checkLogin ,async(req,res)=>{
      await Todo.find({status:'active'},(err,data)=>{
           if(err){
                res.status(500).json({
-                    result:data,
                     error:"this is server side error"
                });
 
           }else{
                res.status(200).json({
-                    
+                    result:data,
                     message:'get successfully'
                })
           }
@@ -125,8 +124,7 @@ router.get('/active',async(req,res)=>{
                data,
                message:'get all data successfully'
           })
-     }
-     catch(error){
+     }catch{
           res.status(500).json({
                error:'this is sever site error'
           })
@@ -141,8 +139,7 @@ router.get('/js',async(req,res)=>{
                data,
                message:'get all data successfully'
           })
-     }
-     catch(error){
+     }catch{
           res.status(500).json({
                error:'this is sever site error'
           })
@@ -157,8 +154,7 @@ router.get('/language',async(req,res)=>{
                data,
                message:'get all data successfully'
           })
-     }
-     catch(error){
+     }catch{
           res.status(500).json({
                error:'this is sever site error'
           })
