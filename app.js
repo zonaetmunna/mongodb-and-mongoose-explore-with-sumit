@@ -4,6 +4,8 @@ const express=require('express');
 const cors=require('cors');
 require('dotenv').config();
 const mongodb=require('mongodb');
+const mongoose=require('mongoose');
+const todoHandler=require('./routeHandler/todoHandler');
 
 // app declared
 const app=express();
@@ -15,12 +17,18 @@ const port=process.env.PORT | 5000;
 app.use(express.json());
 app.use(cors());
 
+// database connect with mongoose
+mongoose.connect('mongodb://localhost/todos')
+.then(()=>console.log('connecting successfully'))
+.catch(err=>console.log(err));
+
+app.use('/todo',todoHandler);
 
 // basic api
-app.get('/',(req,res)=>{
+/* app.get('/',(req,res)=>{
      res.send('hello express');
 });
-
+ */
 
 
 
