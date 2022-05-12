@@ -23,6 +23,13 @@ const todoSchema=mongoose.Schema({
      }
 });
 
+// custom instance methods
+todoSchema.methods={
+     findActive:function(){
+          return mongoose.model('Todo').find({status:active});
+     }
+}
+
 
 // exports file
 module.exports=todoSchema;
